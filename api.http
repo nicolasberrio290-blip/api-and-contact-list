@@ -1,0 +1,86 @@
+@host = http://localhost:3000
+
+### ===== TAREAS =====
+
+### Éxito: listar
+GET {{host}}/tareas
+
+### Éxito: crear (201)
+POST {{host}}/tareas
+Content-Type: application/json
+
+{ "titulo": "Estudiar Express", "descripcion": "Repasar rutas y controladores" }
+
+### Éxito: obtener por id
+GET {{host}}/tareas/1
+
+### Éxito: actualizar (200)
+PUT {{host}}/tareas/1
+Content-Type: application/json
+
+{ "titulo": "Estudiar Express", "descripcion": "Listo", "completada": true }
+
+### Éxito: eliminar (204)
+DELETE {{host}}/tareas/1
+
+### Error: crear sin título (400)
+POST {{host}}/tareas
+Content-Type: application/json
+
+{ "descripcion": "sin titulo" }
+
+### Error: id inexistente (404)
+GET {{host}}/tareas/9999
+
+### Error: id no numérico (400)
+GET {{host}}/tareas/abc
+
+### Error: completada con tipo inválido (400)
+PUT {{host}}/tareas/1
+Content-Type: application/json
+
+{ "titulo": "x", "completada": "si" }
+
+### ===== CONTACTOS =====
+
+### Éxito: listar
+GET {{host}}/contactos
+
+### Éxito: crear (201)
+POST {{host}}/contactos
+Content-Type: application/json
+
+{ "nombre": "Ana Pérez", "email": "ana@correo.com", "telefono": "3001234567" }
+
+### Éxito: obtener por id
+GET {{host}}/contactos/1
+
+### Éxito: actualizar (200)
+PUT {{host}}/contactos/1
+Content-Type: application/json
+
+{ "nombre": "Ana P.", "email": "ana@correo.com", "telefono": "3109999999" }
+
+### Éxito: eliminar (204)
+DELETE {{host}}/contactos/1
+
+### Error: email inválido (400)
+POST {{host}}/contactos
+Content-Type: application/json
+
+{ "nombre": "Luis", "email": "no-es-email" }
+
+### Error: email duplicado (409) — ejecuta antes el POST de éxito dos veces
+POST {{host}}/contactos
+Content-Type: application/json
+
+{ "nombre": "Ana Pérez", "email": "ana@correo.com" }
+
+### Error: contacto inexistente (404)
+DELETE {{host}}/contactos/9999
+
+### Error: JSON mal formado (400)
+POST {{host}}/contactos
+Content-Type: application/json
+
+{ "nombre": "Luis", 
